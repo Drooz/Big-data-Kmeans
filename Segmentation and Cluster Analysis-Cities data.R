@@ -16,10 +16,10 @@ gc()
  
 # Read the Data
 data <-read.csv("C:\\Users\\Dr.ooz\\Downloads\\CustomerTransactions.csv",header=T)
-data2 <- data[,-c(1,2)]
+data3 <- data[,-c(1,2)]
 
 #CREDIT TO Ahmad Tanash FOR THE IDEA OF KEEPING THE ID
-data3 <- data[,-c(2)]
+data2 <- data[,-c(2)]
 
 
 # Show the first few rows of the data
@@ -30,16 +30,14 @@ head(data2)
 attributes(data)
 
 # draw the data
-plot(data) 
-with(data, plot(BlackPercent, PerCapitaIncome, ylab="PerCapitaIncome", xlab="BlackPercent"))
-with(data, plot(BlackPercent, UnemploymentRate, ylab="UnemploymentRate", xlab="BlackPercent"))
+
 
 #################################################################
 ##  K-Means-Partional Clustering                               ##
 #################################################################
 
 # Kmeans Clustering model fitting
-model <- kmeans(data3, 5) # k = 3
+model <- kmeans(data2, 3) # k = 3 for data With ID 5 or 4 DATA WITHOUT ID 
 summary(model)
 
 
@@ -77,7 +75,7 @@ wssplot <- function(data2, nc=15, seed=1234)
 # if one plots the percentage of variance explained by the clusters against the number of clusters, 
 # the first clusters will add much information (explain a lot of variance), 
 # but at some point the marginal gain will drop, giving an angle in the graph. 
-# The number of clusters is chosen at this point, hence the “elbow criterion”.
+# The number of clusters is chosen at this point, hence the Â“elbow criterionÂ”.
 wssplot(data2, nc=10)
  
 
@@ -93,7 +91,7 @@ clusplot(data2, model$cluster, main='2D representation of the Cluster solution',
 
 
 # Show cities and their corresponding clusters:
-table(citiesData[,1],model$cluster)
+table(data2,model$cluster)
 
 
 #################################################################
@@ -112,7 +110,7 @@ plot(H_Model)
 groups <- cutree(H_Model, k=3)
 
 # show groups
-table(citiesData[,1],groups)
+table(data2,groups)
 
 # draw dendogram with red borders around the 3 clusters
 rect.hclust(H_Model, k=3, border="red") 
